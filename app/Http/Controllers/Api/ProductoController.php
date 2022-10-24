@@ -13,9 +13,11 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $productos = Producto::all();
+
+        return $productos;
     }
 
     /**
@@ -26,7 +28,15 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $producto = new Producto();
+
+        $producto->name=$request->name;
+        $producto->detalles=$request->detalles;
+        $producto->precio=$request->precio;
+        $producto->costo_compra=$request->costo_compra;
+        $producto->descripcion=$request->descripcion;
+
+        $producto->save();
     }
 
     /**
@@ -47,9 +57,21 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request)
     {
-        //
+        // $producto = Producto::findOrFail($request->id);
+         $producto = Producto::find($request->id);
+
+        $producto->name=$request->name;
+        $producto->detalles=$request->detalles;
+        $producto->precio=$request->precio;
+        $producto->costo_compra=$request->costo_compra;
+        $producto->descripcion=$request->descripcion;
+
+        $producto->save();
+
+        //return $producto;
+        return ["Resultado" => "Actualizado"];
     }
 
     /**
@@ -58,8 +80,9 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Producto $producto)
+    public function destroy(Request $request)
     {
-        //
+        $producto = Producto::destroy($request->id);
+        return $producto;
     }
 }
