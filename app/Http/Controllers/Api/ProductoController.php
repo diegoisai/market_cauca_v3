@@ -83,6 +83,10 @@ class ProductoController extends Controller
     public function destroy(Request $request)
     {
         $producto = Producto::destroy($request->id);
-        return $producto;
+        // $result = $producto->delete();
+        
+        //return $producto;
+        
+        return ["Resultado" => "Eliminado Exitosamente"];
     }
 }

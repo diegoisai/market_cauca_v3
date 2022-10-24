@@ -21,4 +21,4 @@ Route::post('/add',[ApiController::class, 'add']);
 Route::get('/productos',[ProductoController::class, 'index']);
 Route::post('/productos/add',[ProductoController::class, 'store']);
 Route::put('/update',[ProductoController::class, 'update']);
-Route::delete('/delete',[ProductoController::class, 'destroy']);
+Route::delete('/delete/{id}',[ProductoController::class, 'destroy']);
