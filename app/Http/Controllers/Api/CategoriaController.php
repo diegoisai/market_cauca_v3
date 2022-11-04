@@ -3,23 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Factura;
 use Illuminate\Http\Request;
+use App\Models\Categoria;
 
-class FacturaController extends Controller
+class CategoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $facturas = Factura::all();
+        $categorias = Categoria::all();
 
-        return $facturas;
+        return $categorias;
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -28,18 +27,16 @@ class FacturaController extends Controller
      */
     public function store(Request $request)
     {
-        $factura = new Factura();
+        $categoria = new Categoria();
 
-        $factura->fecha = $request->fecha;
-        $factura->valor = $request->valor;
-        $factura->total = $request->total;
-        $factura->id_producto = $request->id_producto;
-        $factura->id_user = $request->id_user;
+        $categoria->name=$request->name;
+        $categoria->descripcion=$request->descripcion;
 
-        $factura->save();
+        $categoria->save();
 
-        return ['Resultado' => 'Agregado'];
+        return ["Resultado" => "Agregado Exitosamente"];
     }
+
 
     /**
      * Display the specified resource.
@@ -47,9 +44,9 @@ class FacturaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Categoria $categoria)
     {
-        //
+        return $categoria;
     }
 
     /**
@@ -61,18 +58,17 @@ class FacturaController extends Controller
      */
     public function update(Request $request)
     {
-        $factura = Factura::find($request->id);
+        $categoria = Categoria::find($request->id);
 
-        $factura->fecha = $request->fecha;
-        $factura->valor = $request->valor;
-        $factura->total = $request->total;
-        $factura->id_producto = $request->id_producto;
-        $factura->id_user = $request->id_user;
+        $categoria->name=$request->name;
+        $categoria->descripcion=$request->descripcion;
 
-        $factura->save();
+        $categoria->save();
 
-        return ['Resultado' => 'Actualizado'];
+        return ["Resultado" => "Actualizado"];
+
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -82,8 +78,8 @@ class FacturaController extends Controller
      */
     public function destroy(Request $request)
     {
-        $factura = Factura::destroy($request->id);
+        $categoria = Categoria::destroy($request->id);
 
-        return ["Resultado" => "Eliminado Exitosamente"];
+        return ["Resultado" => "Eliminado Satisfactoriamente"];
     }
 }

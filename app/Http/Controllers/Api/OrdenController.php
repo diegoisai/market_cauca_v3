@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Factura;
+use App\Models\Orden;
 use Illuminate\Http\Request;
 
-class FacturaController extends Controller
+class OrdenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class FacturaController extends Controller
      */
     public function index()
     {
-        $facturas = Factura::all();
+        $ordenes = Orden::all();
 
-        return $facturas;
+        return $ordenes;
     }
 
     /**
@@ -28,15 +28,17 @@ class FacturaController extends Controller
      */
     public function store(Request $request)
     {
-        $factura = new Factura();
+        $orden = new Orden();
 
-        $factura->fecha = $request->fecha;
-        $factura->valor = $request->valor;
-        $factura->total = $request->total;
-        $factura->id_producto = $request->id_producto;
-        $factura->id_user = $request->id_user;
+        $orden->cantidad = $request->cantidad;
+        $orden->direccion_envio = $request->direccion_envio;
+        $orden->direccion_pedido = $request->direccion_pedido;
+        $orden->direccion_correo = $request->direccion_correo;
+        $orden->fecha = $request->fecha;
+        $orden->estado = $request->estado;
+        $orden->id_user = $request->id_user;
 
-        $factura->save();
+        $orden->save();
 
         return ['Resultado' => 'Agregado'];
     }
@@ -61,15 +63,17 @@ class FacturaController extends Controller
      */
     public function update(Request $request)
     {
-        $factura = Factura::find($request->id);
+        $orden = Orden::find($request->id);
 
-        $factura->fecha = $request->fecha;
-        $factura->valor = $request->valor;
-        $factura->total = $request->total;
-        $factura->id_producto = $request->id_producto;
-        $factura->id_user = $request->id_user;
+        $orden->cantidad = $request->cantidad;
+        $orden->direccion_envio = $request->direccion_envio;
+        $orden->direccion_pedido = $request->direccion_pedido;
+        $orden->direccion_correo = $request->direccion_correo;
+        $orden->fecha = $request->fecha;
+        $orden->estado = $request->estado;
+        $orden->id_user = $request->id_user;
 
-        $factura->save();
+        $orden->save();
 
         return ['Resultado' => 'Actualizado'];
     }
@@ -82,8 +86,8 @@ class FacturaController extends Controller
      */
     public function destroy(Request $request)
     {
-        $factura = Factura::destroy($request->id);
+        $orden = Orden::destroy($request->id);
 
-        return ["Resultado" => "Eliminado Exitosamente"];
+        return ['Resultado' => 'Eliminado'];
     }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('facturas', function (Blueprint $table) {
             $table->id();
 
-            $table->string('fecha');
+            $table->date('fecha');
             $table->string('valor');
             $table->string('total');
             $table->unsignedBigInteger('id_producto');

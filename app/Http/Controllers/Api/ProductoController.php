@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use App\Http\Resources\v1\ProductoResource;
 
 class ProductoController extends Controller
 {
@@ -15,9 +16,10 @@ class ProductoController extends Controller
      */
     public function index(Request $request)
     {
-        $productos = Producto::all();
+        // $productos = Producto::all();
+        // return $productos;
 
-        return $productos;
+        return ProductoResource::collection(Producto::latest()->paginate());
     }
 
     /**
@@ -37,6 +39,8 @@ class ProductoController extends Controller
         $producto->descripcion=$request->descripcion;
 
         $producto->save();
+
+        return ["Resultado" => "Agregado"];
     }
 
     /**
@@ -47,7 +51,7 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        //
+        return new ProductoResource($producto);
     }
 
     /**
@@ -60,7 +64,7 @@ class ProductoController extends Controller
     public function update(Request $request)
     {
         // $producto = Producto::findOrFail($request->id);
-         $producto = Producto::find($request->id);
+        $producto = Producto::find($request->id);
 
         $producto->name=$request->name;
         $producto->detalles=$request->detalles;
